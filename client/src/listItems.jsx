@@ -24,17 +24,17 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Movies" />
     </ListItemButton >
-    <ListItemButton href="/Groups">
+    <ListItemButton href="/Ratings">
       <ListItemIcon>
         <GroupsIcon />
       </ListItemIcon>
-      <ListItemText primary="Groups" />
+      <ListItemText primary="Ratings" />
     </ListItemButton>
-    <ListItemButton href="/Profile">
+    <ListItemButton href="/MyRatings">
       <ListItemIcon>
         <PersonIcon />
       </ListItemIcon>
-      <ListItemText primary="Profile" />
+      <ListItemText primary="My Ratings" />
     </ListItemButton>
   </React.Fragment>
 );

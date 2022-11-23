@@ -10,24 +10,15 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { mainListItems, secondaryListItems } from '../../listItems';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="">
-        MovieHub
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { mainListItems, secondaryListItems } from '../../listItems';
+import { Copyright } from '../../components/Copyright';
+import RatingsCard from './RatingsCard'
 
 const drawerWidth = 210;
 
@@ -77,7 +68,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-export default function Profile() {
+export default function Ratings() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -112,7 +103,7 @@ export default function Profile() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              MovieHub | Profile
+              MovieHub | Ratings
             </Typography>
             <IconButton color="inherit">
               <SettingsIcon />
@@ -136,7 +127,6 @@ export default function Profile() {
           <List component="nav">
             {mainListItems}
             <Divider sx={{ my: 1 }} />
-            {open && secondaryListItems}
           </List>
         </Drawer>
         <Box
@@ -153,6 +143,22 @@ export default function Profile() {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={3}>
+              {/* Ratings */}
+              <Grid item xs={12} zeroMinWidth>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    overflow: 'auto',
+                    height: '82vh'
+                  }}
+                >
+                  <RatingsCard />
+                </Paper>
+              </Grid>
+            </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>

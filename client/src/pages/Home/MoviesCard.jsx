@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
@@ -10,21 +9,22 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-import Title from './Title';
-import { HighestRatedMoviesData, NewestMoviesData, TrendingMoviesData } from '../../Data';
+import Title from '../../components/Title';
+import { HighestRatedMoviesData, NewestMoviesData } from '../../Data';
 
 export default function MoviesCard() {
 
   const [value, setValue] = React.useState(0);
 
+  // Get data here using API
+  // Will display the 10 highest rated or most recent movies
+  // this will all be done in the query
   let data = [];
 
   if (value == 0) {
     data = HighestRatedMoviesData;
-  } else if (value == 1) {
-    data = NewestMoviesData;
   } else {
-    data = TrendingMoviesData;
+    data = NewestMoviesData;
   }
 
   const handleChange = (_event, newValue) => {
@@ -43,7 +43,6 @@ export default function MoviesCard() {
         >
           <Tab label="Highest Rated" />
           <Tab label="Newest" />
-          <Tab label="Trending" />
         </Tabs>
       <Table size="small">
         <TableHead>
@@ -56,7 +55,7 @@ export default function MoviesCard() {
         <TableBody>
           {data.map((row) => (
             <TableRow key={row.title}>
-              <TableCell>{row.title}</TableCell>
+              <TableCell>{row.title} ({row.year})</TableCell>
               <TableCell>{row.actors}</TableCell>
 
               <TableCell align="right">{`${row.rating}`}</TableCell>

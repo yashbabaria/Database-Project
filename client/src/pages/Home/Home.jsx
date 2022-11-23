@@ -12,27 +12,17 @@ import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SettingsIcon from '@mui/icons-material/Settings';
+
 import { mainListItems, secondaryListItems } from '../../listItems';
 import MoviesCard from './MoviesCard';
-import GroupsCard from './GroupsCard';
+import RatingsCard from './RatingsCard';
+import MyRatingsCard from './MyRatingsCard';
 import RecentlyViewedCard from './RecentlyViewedCard';
+import { Copyright } from '../../components/Copyright';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="">
-        MovieHub
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const drawerWidth = 210;
 
@@ -141,7 +131,6 @@ export default function Home() {
           <List component="nav">
             {mainListItems}
             <Divider sx={{ my: 1 }} />
-            {open && secondaryListItems}
           </List>
         </Drawer>
         <Box
@@ -171,23 +160,28 @@ export default function Home() {
                   <MoviesCard />
                 </Paper>
               </Grid>
-              {/* Groups */}
+              {/* Ratings */}
               <Grid item xs={12}>
                 <Paper
                   sx={{
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
                   }}
                 >
-                  <GroupsCard />
+                  <RatingsCard />
                 </Paper>
               </Grid>
-              {/* Recently Viewed Movies */}
+              {/* My Ratings */}
               <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <RecentlyViewedCard />
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                >
+                  <MyRatingsCard />
                 </Paper>
               </Grid>
             </Grid>
