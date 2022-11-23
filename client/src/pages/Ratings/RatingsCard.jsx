@@ -57,12 +57,23 @@ export default function RatingsCard() {
             </IconButton>
           </TableCell>
           <TableCell align="left">{row.title} ({row.year})</TableCell>
+          {/* user rating will also go here*/}
           <TableCell align="right">{row.rating}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
+                <TableRow>
+                  <TableCell style={{ verticalAlign: 'top' }} width="10%">Username:</TableCell>
+                  <TableCell align="right">username</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell style={{ borderBottom: "none", verticalAlign: 'top' }} width="10%">Rating:</TableCell>
+                  <TableCell align="right" style={{ borderBottom: "none" }}>rating</TableCell>
+                </TableRow>
+              </Box>
+              <Box sx={{ margin: 1, marginTop: 3 }}>
                 <TableRow>
                   <TableCell style={{ verticalAlign: 'top' }} width="10%">Description:</TableCell>
                   <TableCell align="right">This is where row.description will go, but we don't have any descriptions to put here yet</TableCell>

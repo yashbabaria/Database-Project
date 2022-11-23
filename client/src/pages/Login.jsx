@@ -17,7 +17,7 @@ import { Copyright } from '../components/Copyright';
 
 const theme = createTheme();
 
-export default function Login({ login, signup }) {
+export default function Login({ login, loggingIn, setLoggingIn, signup }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -31,8 +31,6 @@ export default function Login({ login, signup }) {
       signup()
     }
   };
-
-  const [loggingIn, setLoggingIn] = useState(true);
 
   function displaySignin() {
     setLoggingIn(true);

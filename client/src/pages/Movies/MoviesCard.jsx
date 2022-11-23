@@ -1,6 +1,8 @@
 import * as React from 'react';
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
+import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -14,6 +16,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 import Title from '../../components/Title';
 import { HighestRatedMoviesData, NewestMoviesData } from '../../Data';
+import { TextField } from '@mui/material';
 
 export default function MoviesCard() {
 
@@ -54,6 +57,54 @@ export default function MoviesCard() {
     setGenreValue(newValue);
   };
 
+
+
+  function Rater(props) {
+    const [error, setError] = React.useState(false);
+    const [rating, setRating] = React.useState("");
+    const handleChange = (e) => {
+      setRating(e.target.value);
+    }
+
+    const rate = (e) => {
+      if (rating !== '' && +rating > 0 && +rating <= 100) {
+        setError(false);
+        //instead of logging, will create a rating here
+        //might want to check if the user has already rated this movie
+        console.log(e.target.value, "rating: ", rating);
+      } else {
+        setError(true);
+      }
+      setRating("");
+    }
+
+    return (
+      <Grid container direction='row' spacing={1}>
+        <Grid item justify="center" xs={6}>
+          <TextField
+            error={error && (rating === '' || +rating < 0 || +rating > 100)}
+            helperText={error ? '0-100' : ''}
+            hiddenLabel
+            InputProps={{
+              inputProps: {
+                max: 100, min: 0
+              }
+            }}
+            onChange={handleChange}
+            size="small"
+            type='number'
+            value={rating}
+            variant="filled"
+          />
+        </Grid>
+        <Grid item justify="center">
+          <Button onClick={rate} value={props.title} variant="outlined">Rate</Button>
+        </Grid>
+      </Grid>
+
+    )
+  }
+
   function Row(props) {
     const { row } = props;
     const [open, setOpen] = React.useState(false);
@@ -71,6 +122,9 @@ export default function MoviesCard() {
             </IconButton>
           </TableCell>
           <TableCell align="left">{row.title} ({row.year})</TableCell>
+          <TableCell align="right" >
+            <Rater title={row.title} />
+          </TableCell>
           <TableCell align="right">{row.rating}</TableCell>
         </TableRow>
         <TableRow>
@@ -138,6 +192,7 @@ export default function MoviesCard() {
           <TableRow>
             <TableCell align="left"></TableCell>
             <TableCell align="left">Title</TableCell>
+            <TableCell align="right"></TableCell>
             <TableCell align="right">Rating / 100</TableCell>
           </TableRow>
         </TableHead>

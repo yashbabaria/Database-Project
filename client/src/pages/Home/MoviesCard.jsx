@@ -55,7 +55,7 @@ export default function MoviesCard() {
         <TableBody>
           {data.map((row) => (
             <TableRow key={row.title}>
-              <TableCell>{row.title}</TableCell>
+              <TableCell>{row.title} ({row.year})</TableCell>
               <TableCell>{row.actors}</TableCell>
 
               <TableCell align="right">{`${row.rating}`}</TableCell>
