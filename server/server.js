@@ -165,6 +165,8 @@ app.post("/api/ratings", async (req, res) =>{
         console.log(error)
     }
 })
+// Get average rating for movies
+
 // Get all ratings for a Movie
 app.get("/api/ratings", async (req, res) =>{
     try {
@@ -189,7 +191,7 @@ app.get("/", (req, res) =>{
     })
 });
 
-app.get("/test_sql", async (req, res) =>{
+app.get("/test", async (req, res) =>{
     try{
         const results = await db.query("SELECT * FROM Users")
         //console.log(results)
