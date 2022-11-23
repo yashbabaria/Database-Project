@@ -10,12 +10,15 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 import { mainListItems, secondaryListItems } from '../../listItems';
 import { Copyright } from '../../components/Copyright';
+import MyRatingsCard from './MyRatingsCard'
 
 const drawerWidth = 210;
 
@@ -65,7 +68,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-export default function Groups() {
+export default function MyRatings() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -100,7 +103,7 @@ export default function Groups() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              MovieHub | Groups
+              MovieHub | My Ratings
             </Typography>
             <IconButton color="inherit">
               <SettingsIcon />
@@ -124,7 +127,6 @@ export default function Groups() {
           <List component="nav">
             {mainListItems}
             <Divider sx={{ my: 1 }} />
-            {open && secondaryListItems}
           </List>
         </Drawer>
         <Box
@@ -141,6 +143,22 @@ export default function Groups() {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={3}>
+              {/* My Ratings */}
+              <Grid item xs={12} zeroMinWidth>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    overflow: 'auto',
+                    height: '82vh',
+                  }}
+                >
+                  <MyRatingsCard />
+                </Paper>
+              </Grid>
+            </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
