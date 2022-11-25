@@ -35,7 +35,7 @@ export default function Login({ login, loggingIn, setLoggingIn, signup }) {
   function displaySignin() {
     setLoggingIn(true);
   }
-
+  
   function displaySignup() {
     setLoggingIn(false);
   }

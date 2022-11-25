@@ -3,14 +3,16 @@ require("dotenv").config();
 const express = require("express");
 const db = require('./db')
 const app = express();
+const cors = require("cors")
 
-//app.use(cors())
+app.use(cors())
 app.use(express.json())
 
-// Get Username and Password (SignIn Page)
+// check if the entered username and password match a saved user
 app.get("/api/users", async (req, res) =>{
     try {
-        const results = await db.query("SELECT * FROM Users WHERE UserID = $1", [req.body.userID])
+        const results = await db.query("SELECT * FROM Users WHERE Username = $1 AND Password = $2", 
+        [req.body.userName, req.body.passWord])
         //console.log(results)
         if(results.rows.length == 0){
             res.status(200).json({
@@ -45,8 +47,8 @@ app.post("/api/users", async (req, res) =>{
         
     }
 })
-// Get User Info (Profile Page) with Ratings and Group (If they are in one)
-app.get("/api/users/", async (req, res) =>{
+// Get User Info (Profile Page) with Ratings
+app.get("/api/users_profile", async (req, res) =>{
     try{
         const results = await db.query("SELECT * FROM Users WHERE UserID = $1", [req.body.userID])
         //console.log(results)
@@ -68,82 +70,43 @@ app.get("/api/users/", async (req, res) =>{
         console.log(err)
     }
 })
-// Post new Group or join group (Group Page)
-app.post("/api/groups", async (req, res) =>{
+// Get all Movies Ordered By Newest
+app.get("/api/movies_newest", async (req, res) =>{
     try {
-        const results = await db.query("INSERT INTO groups (UserID, GroupName, Leader) VALUES ($1, $2, $3) returning *", 
-        [req.body.userID, req.body.groupName, req.body.leader])
+        const results = await db.query("SELECT TitleName as title, Description as actors," +
+        "Round(AVG(Rating.RatingNumber), 0) as rating," +
+        "ReleaseYear as year, RuntimeMinutes as duration FROM Title " +
+        "JOIN Rating ON Title.TitleID = Rating.TitleID " +
+        "GROUP BY title, actors, year, duration ORDER BY year DESC, 1 LIMIT 10")
         //console.log(results)
-        res.status(201).json({
-            status: "success",
-            data: {
-                group: results.rows[0]
-            }
-        })
+        // res.status(200).json({
+        //         status: "success",
+        //         data:{
+        //             users: results.rows,
+        //         }
+        // })
+        res.json(results.rows)
     } catch (error) {
         console.log(error)
     }
 })
-// Get All Groups (Group Page)
-app.get("/api/groups", async (req, res) =>{
+
+// Get all Movies Ordered By Highest Rate http://localhost:3001/api/movies_rating
+app.get("/api/movies_rating", async (req, res) =>{
     try {
-        const results = await db.query("SELECT * FROM Groups")
+        const results = await db.query("SELECT TitleName as title, Description as actors," +
+        "Round(AVG(Rating.RatingNumber), 0) as rating," +
+        "ReleaseYear as year, RuntimeMinutes as duration FROM Title " +
+        "JOIN Rating ON Title.TitleID = Rating.TitleID " +
+        "GROUP BY title, actors, year, duration ORDER BY 3 DESC, 2 LIMIT 10")
         //console.log(results)
-        res.status(200).json({
-                status: "success",
-                data:{
-                    users: results.rows[0],
-                }
-        })
-    } catch (error) {
-        
-    }
-})
-// Get Group Info (Group Page)
-app.get("/api/groups_info", async (req, res) =>{
-    try {
-        const results = await db.query("SELECT * FROM Groups WHERE GroupID in (SELECT GroupID FROM Groups WHERE GroupName = $1)", 
-        [req.body.groupName])
-        //console.log(results)
-        res.status(200).json({
-                status: "success",
-                data:{
-                    users: results.rows,
-                }
-        })
-    } catch (error) {
-        console.log(error)
-    }
-})
-// Post movies 
-app.post("/api/movies", async (req, res) =>{
-    try {
-        const results = await db.query("INSERT INTO title (groupID, TitleName, Description, Genre, ReleaseYear, RuntimeMinutes)" +
-        " VALUES ((SELECT GroupID FROM Groups WHERE GroupName = $1), $2, $3, $4, $5, $6) returning *", 
-        [req.body.groupName, req.body.titleName, req.body.description, req.body.genre, 
-            req.body.releaseYear, req.body.runtimeMin])
-        res.status(201).json({
-            status: "success",
-            data: {
-                group: results.rows[0]
-            }
-        })
-    } catch (error) {
-        console.log(error)
-    }
-})
-// Get all Movies for a Group (Group Page or Movies Page)
-app.get("/api/movies", async (req, res) =>{
-    try {
-        const results = await db.query("SELECT * FROM Title WHERE groupID IN (SELECT GroupID FROM Groups WHERE GroupName = $1)",
-        [req.body.groupName])
-        //console.log(results)
-        res.status(200).json({
-                status: "success",
-                data:{
-                    users: results.rows,
-                }
-        })
+        // res.status(200).json({
+        //         status: "success",
+        //         data:{
+        //             users: results.rows,
+        //         }
+        // })
+        res.json(results.rows)
     } catch (error) {
         console.log(error)
     }
@@ -151,28 +114,57 @@ app.get("/api/movies", async (req, res) =>{
 // Post ratings to Movie and Group
 app.post("/api/ratings", async (req, res) =>{
     try {
-        const results = await db.query("INSERT INTO Rating(GroupID, UserID, TitleID, RatingNumber, likeNumber, ratingComment)" +
-        " VALUES ((SELECT GroupID FROM Groups WHERE GroupName = $1), $2, $3, $4, $5, $6) returning *", 
-        [req.body.groupName, req.body.userID, req.body.titleID, req.body.ratingNum, 
+        const results = await db.query("INSERT INTO Rating(UserID, TitleID, RatingNumber, likeNumber, ratingComment)" +
+        " VALUES ($1, (SELECT TitleID FROM Title WHERE TitleName = $2), $3, $4, $5) returning *", 
+        [req.body.userID, req.body.titleName, req.body.ratingNum, 
             req.body.likeNumber, req.body.rateComment])
-        res.status(201).json({
-            status: "success",
-            data: {
-                group: results.rows[0]
-            }
+        // res.status(201).json({
+        //     status: "success",
+        //     data: {
+        //         group: results.rows[0]
+        //     }
+        // })
+        res.json(results.rows[0])
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+// Query to get all previously created ratings by genre input
+app.get("/api/ratings", async (req, res) =>{
+    try {
+        const results = await db.query("SELECT Users.username as user, Title.TitleName as title," +
+        "Title.description as description, Title.releaseyear as year, Title.runtimeminutes as duration," +
+        "Rating.ratingnumber as rating, Rating.ratingcomment as comment " +
+        "FROM Rating " +
+        "JOIN Users ON Users.UserID = Rating.UserID " +
+        "JOIN Title ON Title.TitleID = Rating.TitleID " +
+        "WHERE Title.genre = $1 ORDER BY Rating.ratingid;", 
+        [req.body.genre])
+        // console.log(results)
+        res.status(200).json({
+                status: "success",
+                data:{
+                    users: results.rows,
+                }
         })
     } catch (error) {
         console.log(error)
     }
 })
-// Get average rating for movies
 
-// Get all ratings for a Movie
-app.get("/api/ratings", async (req, res) =>{
+// Query to get all previously created ratings by userID input
+app.get("/api/myratings", async (req, res) =>{
     try {
-        const results = await db.query("SELECT * FROM Rating WHERE TitleID in (SELECT TitleID FROM Title WHERE TitleName = $1)", 
-        [req.body.titleName])
-        //console.log(results)
+        const results = await db.query("SELECT Title.TitleName as title," +
+        "Title.description as description, Title.releaseyear as year, Title.runtimeminutes as duration," +
+        "Rating.ratingnumber as rating, Rating.ratingcomment as comment " +
+        "FROM Rating " +
+        "JOIN Users ON Users.UserID = Rating.UserID " +
+        "JOIN Title ON Title.TitleID = Rating.TitleID " +
+        "WHERE Users.UserID = $1", 
+        [req.body.userID])
+        // console.log(results)
         res.status(200).json({
                 status: "success",
                 data:{

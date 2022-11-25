@@ -11,10 +11,10 @@ import Login from "./pages/Login"
 const App = () => {
 
     // will set this using database query
-    const [authenticated, setAuthenticated] = useState(true);
+    const [authenticated, setAuthenticated] = useState(false);
 
     // handles page state for login page
-    const [loggingIn, setLoggingIn] = useState(true);
+    const [loggingIn, setLoggingIn] = useState(false);
 
     function login() {
         setAuthenticated(true);
@@ -24,7 +24,7 @@ const App = () => {
         // create account
         setLoggingIn(true);
     }
-
+    
     if (!authenticated) {
         return (
             <Login login={login} loggingIn={loggingIn} setLoggingIn={setLoggingIn} signup={signup} />
