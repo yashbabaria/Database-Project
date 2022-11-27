@@ -47,7 +47,7 @@ export default function MoviesCard() {
       const response = await fetch("http://localhost:3001/api/movies_rating")
       //console.log(value)
       const list = await response.json()
-      setNewData(list)
+      setRatedData(list)
     } catch (error) {
       console.log(error)
     }
@@ -58,7 +58,7 @@ export default function MoviesCard() {
       const response = await fetch("http://localhost:3001/api/movies_newest")  
       //console.log("This is working")
       const list = await response.json()
-      setRatedData(list)
+      setNewData(list)
     } catch (error) {
       console.log(error)
     }

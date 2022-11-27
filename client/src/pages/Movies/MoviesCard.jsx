@@ -23,30 +23,124 @@ export default function MoviesCard() {
   const [sortValue, setSortValue] = React.useState(0);
   const [genreValue, setGenreValue] = React.useState(0);
 
+  const [ratedData, setRatedData] = React.useState([])
+  const [newData, setNewData] = React.useState([])
+
+  const [actionData, setActionData] = React.useState([])
+  const [comedyData, setComedyData] = React.useState([])
+  const [dramaData, setDramaData] = React.useState([])
+  const [horrorData, setHorrorData] = React.useState([])
+  const [romData, setRomData] = React.useState([])
+
   // Get data here using API
   // If needed, sort underneath... can sort here or in query
   let data = [];
 
-  if (sortValue == 0) {
-    // will actually sort movie query by rating
-    data = HighestRatedMoviesData;
-  } else {
-    // will actually sort movie query by genre
-    data = NewestMoviesData;
+  // if (sortValue == 0) {
+  //   // will actually sort movie query by rating
+  //   data = HighestRatedMoviesData;
+  // } else {
+  //   // will actually sort movie query by genre
+  //   data = NewestMoviesData;
+  // }
+
+  const fetchRatedData = async () =>{
+    try {
+      const response = await fetch("http://localhost:3001/api/movies/highest/all")
+      const list = await response.json()
+      setNewData(list)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
+  const fetchNewData = async () =>{
+    try {
+      const response = await fetch("http://localhost:3001/api/movies/newest/all")
+      const list = await response.json()
+      setRatedData(list)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const fetchActionData = async () =>{
+    try {
+      const response = await fetch("http://localhost:3001/api/movies/newest/Action")
+      const list = await response.json()
+      setActionData(list)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const fetchComedyData = async () =>{
+    try {
+      const response = await fetch("http://localhost:3001/api/movies/newest/Comedy")
+      const list = await response.json()
+      setComedyData(list)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const fetchDramaData = async () =>{
+    try {
+      const response = await fetch("http://localhost:3001/api/movies/newest/Drama")
+      const list = await response.json()
+      setDramaData(list)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const fetchHorrorData = async () =>{
+    try {
+      const response = await fetch("http://localhost:3001/api/movies/newest/Thriller")
+      const list = await response.json()
+      setHorrorData(list)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const fetchRomData = async () =>{
+    try {
+      const response = await fetch("http://localhost:3001/api/movies/newest/Romance")
+      const list = await response.json()
+      setRomData(list)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  React.useEffect(() =>{
+    fetchRatedData()
+    fetchNewData()
+    fetchActionData()
+    fetchComedyData()
+    fetchDramaData()
+    fetchHorrorData()
+    fetchRomData()
+  }, [])
+
+
   if (genreValue == 0) {
-    // All Movies
+    if(sortValue == 1){
+      data = ratedData
+    }else{
+      data = newData
+    }
   } else if (genreValue == 1) {
-    // Action Movies
+    data = actionData
   } else if (genreValue == 2) {
-    // Comedy Movies
+    data = comedyData
   } else if (genreValue == 3) {
-    // Drama Movies
+    data = dramaData
   } else if (genreValue == 4) {
-    // Horror Movies
+    data = horrorData
   } else {
-    // Romance Movies
+    data = romData
   }
 
   const handleSortChange = (_event, newValue) => {

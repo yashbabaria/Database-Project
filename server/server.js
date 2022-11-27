@@ -77,7 +77,7 @@ app.get("/api/movies_newest", async (req, res) =>{
         "Round(AVG(Rating.RatingNumber), 0) as rating," +
         "ReleaseYear as year, RuntimeMinutes as duration FROM Title " +
         "JOIN Rating ON Title.TitleID = Rating.TitleID " +
-        "GROUP BY title, actors, year, duration ORDER BY year DESC, 1 LIMIT 10")
+        "GROUP BY title, actors, year, duration ORDER BY year DESC, 3 LIMIT 10")
         //console.log(results)
         // res.status(200).json({
         //         status: "success",
@@ -98,7 +98,7 @@ app.get("/api/movies_rating", async (req, res) =>{
         "Round(AVG(Rating.RatingNumber), 0) as rating," +
         "ReleaseYear as year, RuntimeMinutes as duration FROM Title " +
         "JOIN Rating ON Title.TitleID = Rating.TitleID " +
-        "GROUP BY title, actors, year, duration ORDER BY 3 DESC, 2 LIMIT 10")
+        "GROUP BY title, actors, year, duration ORDER BY 3 DESC, 4 LIMIT 10")
         //console.log(results)
         // res.status(200).json({
         //         status: "success",
@@ -106,6 +106,48 @@ app.get("/api/movies_rating", async (req, res) =>{
         //             users: results.rows,
         //         }
         // })
+        res.json(results.rows)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+app.get("/api/movies/:sort/:genre", async (req, res) =>{
+    try {
+        let results
+        if(req.params.sort == "highest"){
+            if(req.params.genre != "all"){
+                results = await db.query("SELECT TitleName as title, Description as actors," +
+                    "Round(AVG(Rating.RatingNumber), 0) as rating," +
+                    "ReleaseYear as year, RuntimeMinutes as duration FROM Title " +
+                    "JOIN Rating ON Title.TitleID = Rating.TitleID " +
+                    "WHERE Title.genre LIKE \'%$1%\' " +
+                    "GROUP BY title, actors, year, duration ORDER BY 3 DESC, 2", [req.params.genre])
+            }else{
+                results = await db.query("SELECT TitleName as title, Description as actors," +
+                    "Round(AVG(Rating.RatingNumber), 0) as rating," +
+                    "ReleaseYear as year, RuntimeMinutes as duration FROM Title " +
+                    "JOIN Rating ON Title.TitleID = Rating.TitleID " +
+                    "GROUP BY title, actors, year, duration ORDER BY 3 DESC, 2")
+            }
+        }else if(req.params.sort == "newest"){
+            if(req.params.genre != "all"){
+                results = await db.query("SELECT TitleName as title, Description as actors," +
+                    "Round(AVG(Rating.RatingNumber), 0) as rating," +
+                    "ReleaseYear as year, RuntimeMinutes as duration FROM Title " +
+                    "JOIN Rating ON Title.TitleID = Rating.TitleID " +
+                    "WHERE Title.genre LIKE $1 " +
+                    "GROUP BY title, actors, year, duration ORDER BY year DESC, 1", [req.params.genre])
+            }else{
+                results = await db.query("SELECT TitleName as title, Description as actors," +
+                    "Round(AVG(Rating.RatingNumber), 0) as rating," +
+                    "ReleaseYear as year, RuntimeMinutes as duration FROM Title " +
+                    "JOIN Rating ON Title.TitleID = Rating.TitleID " +
+                    "GROUP BY title, actors, year, duration ORDER BY year DESC, 1")
+            }
+            
+        }
+        //console.log(results)
         res.json(results.rows)
     } catch (error) {
         console.log(error)
@@ -131,23 +173,36 @@ app.post("/api/ratings", async (req, res) =>{
 })
 
 // Query to get all previously created ratings by genre input
-app.get("/api/ratings", async (req, res) =>{
+app.get("/api/ratings/:genre", async (req, res) =>{
     try {
-        const results = await db.query("SELECT Users.username as user, Title.TitleName as title," +
-        "Title.description as description, Title.releaseyear as year, Title.runtimeminutes as duration," +
-        "Rating.ratingnumber as rating, Rating.ratingcomment as comment " +
-        "FROM Rating " +
-        "JOIN Users ON Users.UserID = Rating.UserID " +
-        "JOIN Title ON Title.TitleID = Rating.TitleID " +
-        "WHERE Title.genre = $1 ORDER BY Rating.ratingid;", 
-        [req.body.genre])
+        let results
+        if(req.params.genre != "all"){
+            results = await db.query("SELECT Users.username as user, Title.TitleName as title," +
+            "Title.description as description, Title.releaseyear as year, Title.runtimeminutes as duration," +
+            "Rating.ratingnumber as rating, Rating.ratingcomment as comment " +
+            "FROM Rating " +
+            "JOIN Users ON Users.UserID = Rating.UserID " +
+            "JOIN Title ON Title.TitleID = Rating.TitleID " +
+            "WHERE Title.genre LIKE $1 ORDER BY Rating.ratingid;", 
+            [req.params.genre])
+        }else{
+            results = await db.query("SELECT Users.username as user, Title.TitleName as title," +
+                "Title.description as description, Title.releaseyear as year, Title.runtimeminutes as duration," +
+                "Rating.ratingnumber as rating, Rating.ratingcomment as comment " +
+                "FROM Rating " +
+                "JOIN Users ON Users.UserID = Rating.UserID " +
+                "JOIN Title ON Title.TitleID = Rating.TitleID " +
+                "ORDER BY Rating.ratingid;")
+        }
+        
         // console.log(results)
-        res.status(200).json({
-                status: "success",
-                data:{
-                    users: results.rows,
-                }
-        })
+        // res.status(200).json({
+        //         status: "success",
+        //         data:{
+        //             users: results.rows,
+        //         }
+        // })
+        res.json(results.rows)
     } catch (error) {
         console.log(error)
     }

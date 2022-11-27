@@ -1,5 +1,5 @@
 INSERT into users (Username, Password)
-VALUES ('bMutai', 'blazzin'), ('gSteiner', 'ganon'), ('yBabaria','josh');
+VALUES ('bMutai', 'blazzin'), ('gSteiner', 'ganon'), ('yBabaria','josh'), ('critic', 'idiot');
 
 INSERT INTO title (TitleName, Description, Genre, ReleaseYear, RuntimeMinutes)
 VALUES ('Black Adam', '‘Anti-Hero saving his people’', 'Action',2022,165), 

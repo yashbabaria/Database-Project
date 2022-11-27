@@ -11,10 +11,10 @@ import Login from "./pages/Login"
 const App = () => {
 
     // will set this using database query
-    const [authenticated, setAuthenticated] = useState(false);
+    const [authenticated, setAuthenticated] = useState(true);
 
     // handles page state for login page
-    const [loggingIn, setLoggingIn] = useState(false);
+    const [loggingIn, setLoggingIn] = useState(true);
 
     function login() {
         setAuthenticated(true);
