@@ -165,7 +165,22 @@ export default function MoviesCard() {
         setError(false);
         //instead of logging, will create a rating here
         //might want to check if the user has already rated this movie
+        const userID = 3 // FIX: need to current user's userID from url or somewhere
+        const titleName = e.target.value
+        const ratingNum = rating
+        try {
+          const body = {userID, titleName, ratingNum}
+          const response = fetch("http://localhost:3001/api/ratings", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(body)
+          })
+          //console.log(response)
+        } catch (error) {
+          console.log(error)
+        }
         console.log(e.target.value, "rating: ", rating);
+        window.location.reload() // Maybe load to the MyRatings Page
       } else {
         setError(true);
       }
