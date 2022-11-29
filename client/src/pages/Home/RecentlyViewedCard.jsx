@@ -16,7 +16,7 @@ export default function RecentlyViewedCard() {
         <TableHead>
           <TableRow>
             <TableCell>Title</TableCell>
-            <TableCell>Actors</TableCell>
+            <TableCell>Description</TableCell>
             <TableCell align="right">Rating / 100</TableCell>
           </TableRow>
         </TableHead>
@@ -24,7 +24,7 @@ export default function RecentlyViewedCard() {
           {data.map((row) => (
             <TableRow key={row.title}>
               <TableCell>{row.title}</TableCell>
-              <TableCell>{row.actors}</TableCell>
+              <TableCell>{row.description}</TableCell>
 
               <TableCell align="right">{`${row.rating}`}</TableCell>
             </TableRow>
