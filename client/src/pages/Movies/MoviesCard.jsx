@@ -245,14 +245,6 @@ export default function MoviesCard() {
                   <TableCell align="right">This is where row.description will go, but we don't have any descriptions to put here yet</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell style={{ verticalAlign: 'top' }} width="10%">Actors:</TableCell>
-                  <TableCell align="right">{row.actors}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell style={{ verticalAlign: 'top' }} width="10%">Director:</TableCell>
-                  <TableCell align="right">Director Person</TableCell>
-                </TableRow>
-                <TableRow>
                   <TableCell style={{ verticalAlign: 'top' }} width="10%">Released:</TableCell>
                   <TableCell align="right">{row.year}</TableCell>
                 </TableRow>

@@ -81,7 +81,7 @@ export default function MoviesCard() {
         <TableHead>
           <TableRow>
             <TableCell>Title</TableCell>
-            <TableCell>Actors</TableCell>
+            <TableCell>Description</TableCell>
             <TableCell align="right">Rating / 100</TableCell>
           </TableRow>
         </TableHead>
