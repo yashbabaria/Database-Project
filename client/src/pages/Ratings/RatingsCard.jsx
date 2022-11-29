@@ -1,8 +1,5 @@
 import * as React from 'react';
 import Title from '../../components/Title';
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Table from '@mui/material/Table';
@@ -10,10 +7,6 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
-import { RatingsData } from '../../Data';
 
 export default function RatingsCard() {
   const [genreValue, setGenreValue] = React.useState(0);
@@ -28,7 +21,7 @@ export default function RatingsCard() {
   // If needed, sort underneath... can sort here or in query
   // let data = RatingsData;
 
-  const fetchAllData = async () =>{
+  const fetchAllData = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/ratings/all")
       const list = await response.json()
@@ -38,7 +31,7 @@ export default function RatingsCard() {
     }
   }
 
-  const fetchActionData = async () =>{
+  const fetchActionData = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/ratings/Action")
       const list = await response.json()
@@ -48,7 +41,7 @@ export default function RatingsCard() {
     }
   }
 
-  const fetchComedyData = async () =>{
+  const fetchComedyData = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/ratings/Comedy")
       const list = await response.json()
@@ -58,7 +51,7 @@ export default function RatingsCard() {
     }
   }
 
-  const fetchDramaData = async () =>{
+  const fetchDramaData = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/ratings/Drama")
       const list = await response.json()
@@ -68,7 +61,7 @@ export default function RatingsCard() {
     }
   }
 
-  const fetchHorrorData = async () =>{
+  const fetchHorrorData = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/ratings/Thriller")
       const list = await response.json()
@@ -78,7 +71,7 @@ export default function RatingsCard() {
     }
   }
 
-  const fetchRomData = async () =>{
+  const fetchRomData = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/ratings/Romance")
       const list = await response.json()
@@ -88,7 +81,7 @@ export default function RatingsCard() {
     }
   }
 
-  React.useEffect(() =>{
+  React.useEffect(() => {
     fetchAllData()
     fetchActionData()
     fetchComedyData()
@@ -121,61 +114,12 @@ export default function RatingsCard() {
 
   function Row(props) {
     const { row } = props;
-    const [open, setOpen] = React.useState(false);
 
     return (
       <React.Fragment>
-        <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-          <TableCell align="left">
-            <IconButton
-              aria-label="expand row"
-              size="small"
-              onClick={() => setOpen(!open)}
-            >
-              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </IconButton>
-          </TableCell>
-          <TableCell align="left">{row.title} ({row.year})</TableCell>
-          {/* user rating will also go here*/}
-          <TableCell align="right">{row.rating}</TableCell>
-        </TableRow>
         <TableRow>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-              <Box sx={{ margin: 1 }}>
-                <TableRow>
-                  <TableCell style={{ verticalAlign: 'top' }} width="10%">Username:</TableCell>
-                  <TableCell align="right">username</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell style={{ borderBottom: "none", verticalAlign: 'top' }} width="10%">Rating:</TableCell>
-                  <TableCell align="right" style={{ borderBottom: "none" }}>rating</TableCell>
-                </TableRow>
-              </Box>
-              <Box sx={{ margin: 1, marginTop: 3 }}>
-                <TableRow>
-                  <TableCell style={{ verticalAlign: 'top' }} width="10%">Description:</TableCell>
-                  <TableCell align="right">This is where row.description will go, but we don't have any descriptions to put here yet</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell style={{ verticalAlign: 'top' }} width="10%">Actors:</TableCell>
-                  <TableCell align="right">{row.actors}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell style={{ verticalAlign: 'top' }} width="10%">Director:</TableCell>
-                  <TableCell align="right">Director Person</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell style={{ verticalAlign: 'top' }} width="10%">Released:</TableCell>
-                  <TableCell align="right">{row.year}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell style={{ borderBottom: "none", verticalAlign: 'top' }} width="10%">Duration:</TableCell>
-                  <TableCell align="right" style={{ borderBottom: "none" }}>{row.duration}</TableCell>
-                </TableRow>
-              </Box>
-            </Collapse>
-          </TableCell>
+          <TableCell align="left">{row.title} ({row.year})</TableCell>
+          <TableCell align="right">{row.rating}</TableCell>
         </TableRow>
       </React.Fragment>
     );
@@ -201,7 +145,6 @@ export default function RatingsCard() {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell align="left"></TableCell>
             <TableCell align="left">Title</TableCell>
             <TableCell align="right">Rating / 100</TableCell>
           </TableRow>

@@ -15,7 +15,6 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 import Title from '../../components/Title';
-import { HighestRatedMoviesData, NewestMoviesData } from '../../Data';
 import { TextField } from '@mui/material';
 
 export default function MoviesCard() {
