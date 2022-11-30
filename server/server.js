@@ -162,8 +162,8 @@ app.post("/api/ratings", async (req, res) =>{
     try {
         //console.log(req.body)
         const{userID, titleName, ratingNum} = req.body
-        const results = await db.query("INSERT INTO Rating(UserID, TitleID, RatingNumber)" +
-        " VALUES ($1, (SELECT TitleID FROM Title WHERE TitleName = $2), $3) returning *", 
+        const results = await db.query("INSERT INTO Rating(ratingid, UserID, TitleID, RatingNumber)" +
+        " VALUES ((SELECT MAX(ratingid)+1 FROM Rating), $1, (SELECT TitleID FROM Title WHERE TitleName = $2), $3) returning *", 
         [userID, titleName, ratingNum])
         // res.status(201).json({
         //     status: "success",
