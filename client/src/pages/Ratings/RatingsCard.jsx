@@ -121,32 +121,6 @@ export default function RatingsCard() {
           <TableCell align="left">{row.title} ({row.year})</TableCell>
           <TableCell align="right">{row.rating}</TableCell>
         </TableRow>
-        <TableRow>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-              <Box sx={{ margin: 1 }}>
-                <TableRow>
-                  <TableCell style={{ borderBottom: "none", verticalAlign: 'top' }} width="10%">Rating:</TableCell>
-                  <TableCell align="right" style={{ borderBottom: "none" }}>{row.rating}</TableCell>
-                </TableRow>
-              </Box>
-              <Box sx={{ margin: 1, marginTop: 3 }}>
-                <TableRow>
-                  <TableCell style={{ verticalAlign: 'top' }} width="10%">Description:</TableCell>
-                  <TableCell align="right">{row.description}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell style={{ verticalAlign: 'top' }} width="10%">Released:</TableCell>
-                  <TableCell align="right">{row.year}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell style={{ borderBottom: "none", verticalAlign: 'top' }} width="10%">Duration:</TableCell>
-                  <TableCell align="right" style={{ borderBottom: "none" }}>{row.duration}</TableCell>
-                </TableRow>
-              </Box>
-            </Collapse>
-          </TableCell>
-        </TableRow>
       </React.Fragment>
     );
   }
