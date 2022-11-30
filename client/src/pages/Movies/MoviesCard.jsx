@@ -164,7 +164,7 @@ export default function MoviesCard() {
         setError(false);
         //instead of logging, will create a rating here
         //might want to check if the user has already rated this movie
-        const userID = 3 // FIX: need to current user's userID from url or somewhere
+        const userID = 5
         const titleName = e.target.value
         const ratingNum = rating
         try {
@@ -179,7 +179,7 @@ export default function MoviesCard() {
           console.log(error)
         }
         console.log(e.target.value, "rating: ", rating);
-        window.location.reload() // Maybe load to the MyRatings Page
+        //window.location.reload() // Maybe load to the MyRatings Page
       } else {
         setError(true);
       }
@@ -241,7 +241,7 @@ export default function MoviesCard() {
               <Box sx={{ margin: 1 }}>
                 <TableRow>
                   <TableCell style={{ verticalAlign: 'top' }} width="10%">Description:</TableCell>
-                  <TableCell align="right">This is where row.description will go, but we don't have any descriptions to put here yet</TableCell>
+                  <TableCell align="right">{row.description}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell style={{ verticalAlign: 'top' }} width="10%">Released:</TableCell>

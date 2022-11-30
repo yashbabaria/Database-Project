@@ -19,8 +19,8 @@ export default function MyRatingsCard() {
   const [romData, setRomData] = React.useState([])
   // Get data here using API
   // If needed, sort underneath... can sort here or in query
-  const userID = 3 // FIX: need to current user's userID from url or somewhere
-  const fetchAllData = async () => {
+  const userID = 5 // FIX: need to current user's userID from url or somewhere
+  const fetchAllData = async () =>{
     try {
       //const body = {userID}
       const response = await fetch("http://localhost:3001/api/myratings/all/" + userID)

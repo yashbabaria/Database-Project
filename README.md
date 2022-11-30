@@ -2,7 +2,7 @@
 ##Detailed Application
 
 Our group is planning on creating a database-focused web application. Since movies are one of the bright spots in everyday life, there should be a website that could really share the enthusiasm of cinema with friends and family. Issues with IMDB and other reviewer websites are that things are mostly individual and do not promote group involvement. The application we plan to make for this project is a movie reviewer app for friends and family. The goal is the app is to create a conversation with a group about movies only. Also, adding visuals of data such as rating charts, recommendations, and many more. For ratings, we would have seen when implementation whether a 5-star rating or 0 to 100 rating works for our web app. This way reviewing movies would be more of a group activity instead of writing a review and looking at all of the random reviews which is a tedious task. Hopefully, this web app creates a more joyful group experience in watching movies and having great debates.
-We will let the user start by signing in and creating an account. They have the option to create a group. The user that creates the group becomes the group leader. Only the group leader is able to invite users to the group by username. Users in the group are able to add movies and rate the movies. Movies can be only rated once. Users may rate the movie by 1-100 or 5 stars, leave a like or dislike, and leave a comment. The movie page will visualize the rating data. The movie page may have more than 2 visualizations and random comments from one of the users.
+We will let the user start by signing in and creating an account.  Users may rate the movie by 1-100. The movie page will show the rating data.
 
 ##ER Diagram
 
