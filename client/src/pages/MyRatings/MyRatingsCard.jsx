@@ -19,8 +19,13 @@ export default function MyRatingsCard() {
   const [romData, setRomData] = React.useState([])
   // Get data here using API
   // If needed, sort underneath... can sort here or in query
+<<<<<<< HEAD
   const userID = 5 // FIX: need to current user's userID from url or somewhere
   const fetchAllData = async () =>{
+=======
+  const userID = 3 // FIX: need to current user's userID from url or somewhere
+  const fetchAllData = async () => {
+>>>>>>> main
     try {
       //const body = {userID}
       const response = await fetch("http://localhost:3001/api/myratings/all/" + userID)
@@ -127,6 +132,7 @@ export default function MyRatingsCard() {
           <TableCell align="left">{row.title} ({row.year})</TableCell>
           <TableCell align="right">{row.rating}</TableCell>
         </TableRow>
+<<<<<<< HEAD
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <Collapse in={open} timeout="auto" unmountOnExit>
@@ -153,6 +159,8 @@ export default function MyRatingsCard() {
             </Collapse>
           </TableCell>
         </TableRow>
+=======
+>>>>>>> main
       </React.Fragment>
     );
   }
