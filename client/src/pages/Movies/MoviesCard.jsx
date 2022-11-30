@@ -241,11 +241,7 @@ export default function MoviesCard() {
               <Box sx={{ margin: 1 }}>
                 <TableRow>
                   <TableCell style={{ verticalAlign: 'top' }} width="10%">Description:</TableCell>
-<<<<<<< HEAD
                   <TableCell align="right">{row.description}</TableCell>
-=======
-                  <TableCell align="right">This is where row.description will go, but we don't have any descriptions to put here yet</TableCell>
->>>>>>> main
                 </TableRow>
                 <TableRow>
                   <TableCell style={{ verticalAlign: 'top' }} width="10%">Released:</TableCell>

@@ -118,7 +118,6 @@ export default function RatingsCard() {
     return (
       <React.Fragment>
         <TableRow>
-<<<<<<< HEAD
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
@@ -143,10 +142,6 @@ export default function RatingsCard() {
               </Box>
             </Collapse>
           </TableCell>
-=======
-          <TableCell align="left">{row.title} ({row.year})</TableCell>
-          <TableCell align="right">{row.rating}</TableCell>
->>>>>>> main
         </TableRow>
       </React.Fragment>
     );
