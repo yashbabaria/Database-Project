@@ -1,8 +1,5 @@
 import * as React from 'react';
 import Title from '../../components/Title';
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Table from '@mui/material/Table';
@@ -10,10 +7,6 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
-import { MyRatingsData } from '../../Data';
 
 export default function MyRatingsCard() {
   const [genreValue, setGenreValue] = React.useState(0);
@@ -26,8 +19,13 @@ export default function MyRatingsCard() {
   const [romData, setRomData] = React.useState([])
   // Get data here using API
   // If needed, sort underneath... can sort here or in query
+<<<<<<< HEAD
   const userID = 5 // FIX: need to current user's userID from url or somewhere
   const fetchAllData = async () =>{
+=======
+  const userID = 3 // FIX: need to current user's userID from url or somewhere
+  const fetchAllData = async () => {
+>>>>>>> main
     try {
       //const body = {userID}
       const response = await fetch("http://localhost:3001/api/myratings/all/" + userID)
@@ -39,7 +37,7 @@ export default function MyRatingsCard() {
     }
   }
 
-  const fetchActionData = async () =>{
+  const fetchActionData = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/myratings/Action/" + userID)
       const list = await response.json()
@@ -49,7 +47,7 @@ export default function MyRatingsCard() {
     }
   }
 
-  const fetchComedyData = async () =>{
+  const fetchComedyData = async () => {
     try {
       //console.log("Did this again")
       const response = await fetch("http://localhost:3001/api/myratings/Comedy/" + userID)
@@ -60,7 +58,7 @@ export default function MyRatingsCard() {
     }
   }
 
-  const fetchDramaData = async () =>{
+  const fetchDramaData = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/myratings/Drama/" + userID)
       const list = await response.json()
@@ -70,7 +68,7 @@ export default function MyRatingsCard() {
     }
   }
 
-  const fetchHorrorData = async () =>{
+  const fetchHorrorData = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/myratings/Thriller/" + userID)
       const list = await response.json()
@@ -80,7 +78,7 @@ export default function MyRatingsCard() {
     }
   }
 
-  const fetchRomData = async () =>{
+  const fetchRomData = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/myratings/Romance/" + userID)
       const list = await response.json()
@@ -91,7 +89,7 @@ export default function MyRatingsCard() {
     }
   }
 
-  React.useEffect(() =>{
+  React.useEffect(() => {
     fetchAllData()
     fetchActionData()
     fetchComedyData()
@@ -127,23 +125,14 @@ export default function MyRatingsCard() {
 
   function Row(props) {
     const { row } = props;
-    const [open, setOpen] = React.useState(false);
 
     return (
       <React.Fragment>
-        <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-          <TableCell align="left">
-            <IconButton
-              aria-label="expand row"
-              size="small"
-              onClick={() => setOpen(!open)}
-            >
-              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </IconButton>
-          </TableCell>
+        <TableRow>
           <TableCell align="left">{row.title} ({row.year})</TableCell>
           <TableCell align="right">{row.rating}</TableCell>
         </TableRow>
+<<<<<<< HEAD
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <Collapse in={open} timeout="auto" unmountOnExit>
@@ -170,6 +159,8 @@ export default function MyRatingsCard() {
             </Collapse>
           </TableCell>
         </TableRow>
+=======
+>>>>>>> main
       </React.Fragment>
     );
   }
@@ -194,7 +185,6 @@ export default function MyRatingsCard() {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell align="left"></TableCell>
             <TableCell align="left">Title</TableCell>
             <TableCell align="right">Rating / 100</TableCell>
           </TableRow>
